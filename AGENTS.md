@@ -75,5 +75,6 @@ own component in a different domain, following the same shape.
 ```
 backend:  ./gradlew test          # includes migrations-from-empty via Testcontainers
 frontend: npx tsc -b              # typecheck
+db:       scripts/check-changesets  # formatted-SQL grammar + layout (rule 6), fails closed
 manual:   scripts/run-backend + run-frontend → the flow you touched, in the browser
 ```

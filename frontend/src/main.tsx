@@ -12,6 +12,12 @@ import {
 } from '@helex/state';
 import { AppRoot, HelexThemeProvider } from '@helex/ui';
 import { App } from './App';
+/* Side-effect import: registers the TalTech theme BEFORE first render — see
+   the note inside the module for why the ordering matters. */
+import './theme/taltech';
+
+/** Theme comes from the environment (frontend/.env), TalTech by default. */
+const THEME = import.meta.env.VITE_THEME || 'taltech';
 
 // The standard Helex provider stack, exactly as the production applications
 // nest it (compare helex-tx modules/tedy/frontend/src/main.tsx). You should
@@ -41,7 +47,7 @@ createRoot(document.getElementById('root')!).render(
           <AuthGate>
             <AuthReduxBridge />
             <BrowserRouter>
-              <HelexThemeProvider>
+              <HelexThemeProvider theme={THEME}>
                 <AppRoot appName="Animals Register">
                   <GlobalApiErrorBridge />
                   <App />

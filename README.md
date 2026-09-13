@@ -18,6 +18,11 @@ checkout here and none is needed.
 | Registry adapter (mock + X-Road) | `.../animals/ownerregistry/` | S3 |
 | UI — React + @helex/ui | `frontend/src/` | S4 |
 
+The UI wears the **TalTech theme** — the `taltech` pack from
+`helex-solutions/helex-extensions`, registered in `frontend/src/theme/taltech.ts`
+and selected by `VITE_THEME` in `frontend/.env` (the @helex/ui built-ins
+`helex`, `tedi`, `matrix` work there too).
+
 ## Prerequisites
 
 1. **Docker Desktop** (or compatible) — running.

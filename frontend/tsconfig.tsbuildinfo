@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/vite-env.d.ts","./src/pages/animalcreate.tsx","./src/pages/animallist.tsx"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/vite-env.d.ts","./src/pages/animalcreate.tsx","./src/pages/animallist.tsx","./src/theme/taltech.ts"],"version":"5.9.3"}
