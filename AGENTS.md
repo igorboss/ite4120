@@ -22,6 +22,12 @@ own component in a different domain, following the same shape.
 4. **Never commit to main.** Branch, PR, review.
 5. **Never edit a released Liquibase changeset.** Append a new one — see
    `docs/src/liquibase-guide.md`.
+6. **Formatted-SQL grammar.** `--` lines belong to Liquibase (directives and the
+   bare `--` terminator closing every changeset); prose is a single-line
+   `--comment` plus a `/* */` block; body comments that start a line are
+   `/* */` blocks; datatypes align at column 25; business-table indexes carry
+   `where (sys_status = 'A')`. Every file under `animals/db/changelog/` is the
+   example.
 
 ## Architecture conventions
 

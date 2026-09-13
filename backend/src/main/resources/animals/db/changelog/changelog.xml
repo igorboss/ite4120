@@ -15,7 +15,7 @@
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
 
   <!-- Shared core schema, from the published commons-db-core jar. Idempotent. -->
   <include file="core-db/changelog/changelog.xml"/>
