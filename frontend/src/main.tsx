@@ -15,6 +15,8 @@ import { App } from './App';
 /* Side-effect import: registers the TalTech theme BEFORE first render — see
    the note inside the module for why the ordering matters. */
 import './theme/taltech';
+/* Proxima Nova webfonts — the first name in the theme's fontFamily stack. */
+import './assets/fonts/fonts.css';
 
 /** Theme comes from the environment (frontend/.env), TalTech by default. */
 const THEME = import.meta.env.VITE_THEME || 'taltech';
