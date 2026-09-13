@@ -60,6 +60,7 @@ cd frontend && npm install && cd ..
 | Swagger UI — the live API contract | http://localhost:18440/swagger-ui.html |
 | The imitated population registry | http://localhost:18440/mock-registry/persons/38102130265 |
 | PostgreSQL | localhost:18520 · `scripts/psql` for a shell |
+| The documentation book | `scripts/run-docs` → http://localhost:18740 (needs [mdBook](https://rust-lang.github.io/mdBook/guide/installation.html), no Docker) |
 
 Signed in automatically as a mock user; the API accepts
 `Authorization: Bearer <any-username>` in local mode. The database is
@@ -87,5 +88,5 @@ executable — and they also prove the migrations run clean from empty.
 ## Reading order
 
 `docs/src/README-docs.md` → the animals story and spec in `docs/src/` →
-`docs/src/liquibase-guide.md` → `docs/src/development-workflow.md`. Or render the
-book: `cd docs && mdbook serve`.
+`docs/src/liquibase-guide.md` → `docs/src/development-workflow.md`. Or serve the
+book with live reload: `scripts/run-docs` (`.sh` / `.ps1`).
