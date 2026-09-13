@@ -11,7 +11,7 @@ name: ite4120
 
 services:
   postgres:
-    image: postgres:17-alpine
+    image: postgres:18-alpine
     environment:
       POSTGRES_DB: animals
       POSTGRES_USER: ${ANIMALS_DB_USER:-animals}
@@ -19,7 +19,10 @@ services:
     ports:
       - "${ANIMALS_PG_PORT:-18520}:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      # postgres:18+ images keep PGDATA under /var/lib/postgresql/<major>/docker,
+      # so the volume mounts the parent dir (mounting the old .../data path would
+      # silently persist nothing).
+      - pgdata:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${ANIMALS_DB_USER:-animals} -d animals"]
       interval: 5s
