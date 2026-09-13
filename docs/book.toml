@@ -1,0 +1,7 @@
+[book]
+title = "ITE4120 · Animals Register — Course Template"
+authors = ["ITE4120"]
+src = "src"
+
+[build]
+create-missing = false

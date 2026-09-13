@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Master changelog for the animals register.
+
+  The FIRST include is not ours: it ships inside the published
+  org.helex.emr:commons-db-core jar and creates the shared `core` schema —
+  the id sequence (core.seq_id), the sys-column trigger machinery
+  (core.sys_columns, core.create_table_metadata) and the session functions.
+  Our own DDL below depends on it, which is why it must come first.
+
+  Students: add your component as ONE include here, pointing at your own
+  <yours>/db/changelog/<yours>/changelog.xml — exactly like the animals line.
+-->
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+  <!-- Shared core schema, from the published commons-db-core jar. Idempotent. -->
+  <include file="core-db/changelog/changelog.xml"/>
+
+  <!-- The worked example component. -->
+  <include file="animals/db/changelog/animals/changelog.xml"/>
+
+</databaseChangeLog>
