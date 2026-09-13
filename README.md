@@ -28,18 +28,44 @@ and selected by `VITE_THEME` in `frontend/.env` (the @helex/ui built-ins
 1. **Docker Desktop** (or compatible) — running.
 2. **A GitHub account** and a token with `read:packages`. The Helex packages
    live in GitHub Packages, which refuses anonymous reads — this is the one
-   step nothing works without:
+   step nothing works without.
+
+   **Create the token** (opens the form pre-filled with exactly the one scope
+   this project needs — pick an expiration, press *Generate token*, copy it
+   once):
 
    ```bash
-   # Gradle (backend) — ~/.gradle/gradle.properties:
+   open "https://github.com/settings/tokens/new?description=ITE4120+Helex+packages+read-only&scopes=read:packages"
+   ```
+
+   (Windows: paste the URL into the browser, or `start ""` instead of `open`.)
+   It must be a **classic** token: GitHub's Maven and npm registries do not
+   accept fine-grained tokens. `read:packages` alone is the minimum privilege —
+   it can download packages your account can see, and nothing else.
+
+   **Wire it in** — one paste, silent prompt, no token in your shell history
+   (macOS/Linux; on Windows edit the two files by hand as shown below):
+
+   ```bash
+   read -s TOKEN && printf 'gpr.user=%s\ngpr.key=%s\n' "YOUR_GITHUB_USERNAME" "$TOKEN" >> ~/.gradle/gradle.properties && npm config set "//npm.pkg.github.com/:_authToken=$TOKEN" --global && unset TOKEN
+   ```
+
+   What that writes, if you prefer to do it by hand:
+
+   ```properties
+   # ~/.gradle/gradle.properties  (backend)
    gpr.user=YOUR_GITHUB_USERNAME
    gpr.key=ghp_YOUR_TOKEN
+   ```
 
+   ```bash
    # npm (frontend) — one command:
    npm config set //npm.pkg.github.com/:_authToken=ghp_YOUR_TOKEN --global
    ```
 
-   (With the GitHub CLI: `gh auth token` prints a usable token.)
+   The token unlocks only packages your account can access — if `gradle` or
+   `npm install` answers 401/403 with a correct token, you are missing access
+   to the `helex-solutions` packages; ask the lecturer.
 3. **Java is downloaded for you** — the Gradle toolchain fetches JDK 25 on first
    build. **Node 20+** for the frontend.
 
