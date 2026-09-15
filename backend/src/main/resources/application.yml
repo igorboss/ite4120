@@ -13,9 +13,10 @@ spring:
     username: ${ANIMALS_DB_USER:animals}
     password: ${ANIMALS_DB_PASSWORD:animals}
     hikari:
-      # Every DB connection carries a session user — the core.sys_columns() trigger
-      # stamps sys_created_by / sys_modified_by from this. One line replaces a whole
-      # session-management subsystem at course scale.
+      # The pool's default session user — what the core.sys_columns() trigger stamps
+      # into sys_created_by / sys_modified_by when nobody is signed in (Liquibase,
+      # demo data, tests). Inside a request, JdbcConfig overrides it per connection
+      # with the signed-in user via core.set_user().
       connection-init-sql: "select set_config('core.client_identifier', 'animals', false)"
   liquibase:
     change-log: classpath:animals/db/changelog/changelog.xml

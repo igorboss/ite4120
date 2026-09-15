@@ -43,6 +43,9 @@ What the API of your component must have — the example does exactly this:
 Local mode uses mock authentication: the Bearer token **is** the username,
 nothing is verified (`auth.mock.enabled=true` in the `local` profile —
 `MockBearerAuthFilter`). Without a token every `/api/**` call answers 401.
+The name in the token is also who the database records: `sys_created_by` and
+`sys_modified_by` carry it (`JdbcConfig` hands it to `core.set_user()` on every
+connection a request uses).
 
 ```bash
 H='Authorization: Bearer superadmin'
