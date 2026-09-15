@@ -1,7 +1,25 @@
-# Agent contract — ITE4120 animals-register template
+# AGENTS.md — ITE4120 animals-register template
 
-Instructions for AI coding agents working in this repository. Humans: this is
-also your onboarding — the rules are identical.
+Canonical instructions for AI coding agents working in this repository — the
+single source of truth, the same rules for every tool. Read on startup by
+Claude Code (via `CLAUDE.md`), Cursor (via `.cursor/rules/`), GitHub Copilot
+(via `.github/copilot-instructions.md`), Gemini Code Assist (via `GEMINI.md`),
+OpenAI Codex, Aider, Continue and any other agent that follows the
+[agents.md convention](https://agents.md). The tool-specific files are pointers
+only: **no rule lives anywhere but here, and this file wins on any conflict.**
+Humans: this is also your onboarding — the rules are identical.
+
+| Tool | Reads | Which is |
+| --- | --- | --- |
+| Claude Code | `CLAUDE.md` | a pointer here |
+| Cursor | `.cursor/rules/*.mdc` | pointers here, scoped by file type |
+| GitHub Copilot (chat + coding agent) | `.github/copilot-instructions.md` | a pointer here; the coding agent also reads this file directly |
+| Gemini Code Assist | `GEMINI.md` | a pointer here |
+| Codex, Aider, Continue, Junie, … | `AGENTS.md` | this file, natively |
+
+Adding a rule: write it **here**, in the section it belongs to. Never in a
+tool file — a rule only Claude can see is a rule the group-mate on Cursor will
+break.
 
 ## What this is
 

@@ -8,3 +8,6 @@ docs/book/
 .idea/
 .vscode/
 *.tsbuildinfo
+.claude/*
+!.claude/agents/
+!.claude/commands/
