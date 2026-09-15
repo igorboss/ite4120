@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import {
@@ -20,14 +20,6 @@ import { animalsApi, type Animal, type OwnerInfo } from '../api';
 export const AnimalList = () => {
   const navigate = useNavigate();
   const notify = useAppNotification();
-  /* useAppNotification() hands back a NEW wrapper object on every render, so it
-     must never be a hook dependency: `load` would change on each render, the
-     effect below would re-run after every response, and the page would poll the
-     backend forever. The effect reaches the current notifier through a ref. */
-  const notifyRef = useRef(notify);
-  useEffect(() => {
-    notifyRef.current = notify;
-  });
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -39,9 +31,9 @@ export const AnimalList = () => {
     animalsApi
       .list(text || undefined)
       .then((result) => setAnimals(result.data))
-      .catch((e) => notifyRef.current.error('Could not load animals', e.message))
+      .catch((e) => notify.error('Could not load animals', e.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [notify]);
 
   useEffect(() => {
     const t = setTimeout(() => load(search), 250);
