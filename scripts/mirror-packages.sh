@@ -42,7 +42,7 @@ mirror() { # source-repo group artifact version
   local dst="https://maven.pkg.github.com/$DST_REPO/$gpath/$artifact/$version"
 
   echo "$group:$artifact:$version"
-  if curl -sf -u "$ACTOR:$TOKEN" -o /dev/null "$dst/$artifact-$version.pom"; then
+  if curl -sfL -u "$ACTOR:$TOKEN" -o /dev/null "$dst/$artifact-$version.pom"; then
     echo "  already mirrored — skipped (existing versions are never overwritten)"
     return
   fi
@@ -52,7 +52,9 @@ mirror() { # source-repo group artifact version
               "$artifact-$version.module" "$artifact-$version-sources.jar"; do
     for f in "$base" "$base.sha1" "$base.md5" "$base.sha256" "$base.sha512"; do
       tmp=$(mktemp)
-      if curl -sf -u "$ACTOR:$TOKEN" -o "$tmp" "$src/$f"; then
+      # -L matters: the registry answers with a 302 to a signed download URL;
+      # without following it you mirror the redirect page, not the artifact.
+      if curl -sfL -u "$ACTOR:$TOKEN" -o "$tmp" "$src/$f"; then
         code=$(curl -s -u "$ACTOR:$TOKEN" -X PUT --data-binary @"$tmp" -o /dev/null -w '%{http_code}' "$dst/$f")
         case "$code" in
           2*) echo "  $f"; copied=$((copied+1)) ;;
@@ -63,7 +65,14 @@ mirror() { # source-repo group artifact version
     done
   done
   [ "$copied" -gt 0 ] || { echo "  found nothing at the source — wrong version?" >&2; exit 1; }
-  echo "  -> $copied files"
+  # Round-trip check: the pom read back from the mirror must be byte-identical
+  # to the source. This catches exactly the bug class that shipped once — a
+  # redirect page mirrored instead of the artifact.
+  local sum_src sum_dst
+  sum_src=$(curl -sfL -u "$ACTOR:$TOKEN" "$src/$artifact-$version.pom" | shasum -a 256 | cut -d" " -f1)
+  sum_dst=$(curl -sfL -u "$ACTOR:$TOKEN" "$dst/$artifact-$version.pom" | shasum -a 256 | cut -d" " -f1)
+  [ "$sum_src" = "$sum_dst" ] || { echo "  MIRROR CORRUPT: pom read back differs from source" >&2; exit 1; }
+  echo "  -> $copied files, round-trip verified"
 }
 
 for a in commons-db commons-db-core commons-model commons-util; do
