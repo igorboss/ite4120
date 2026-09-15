@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DatePicker, Form } from 'antd';
 import dayjs from 'dayjs';
@@ -48,10 +48,6 @@ export const AnimalDetail = () => {
   const animalId = Number(id);
   const navigate = useNavigate();
   const notify = useAppNotification();
-  const notifyRef = useRef(notify); // new object every render — see AGENTS.md § Known pitfalls
-  useEffect(() => {
-    notifyRef.current = notify;
-  });
   const [form] = Form.useForm<Animal>();
   const dc = useDataController<Animal>({} as Animal);
   const [mode, setMode] = useState<'view' | 'edit'>('view');
@@ -75,16 +71,16 @@ export const AnimalDetail = () => {
         }
       })
       .catch((e) => {
-        notifyRef.current.error('Could not load the animal', e.message);
+        notify.error('Could not load the animal', e.message);
         navigate('/animals');
       })
       .finally(() => !cancelled && setLoading(false));
     return () => {
       cancelled = true;
     };
-    // dc and form are stable handles; the record is keyed by the route parameter.
+    // dc, form and navigate are stable handles; the record is keyed by the route parameter.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animalId]);
+  }, [animalId, notify]);
 
   const save = async (values: Animal) => {
     setSaving(true);

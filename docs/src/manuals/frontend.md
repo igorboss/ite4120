@@ -111,14 +111,12 @@ inside. `onFinish` maps the values to the API body (dates via
 `notify.success` and navigates back; the `catch` shows the backend's
 `detail` text unchanged, which is where 400/409 messages surface.
 
-## Notifications — one pitfall
+## Notifications
 
-`useAppNotification()` gives `notify.success/info/warning/error`. In the
-published version pinned here it returns a **new object on every render**:
-never put it in a hook dependency array, or an effect that fetches and sets
-state re-runs after every response — the list page would poll forever. The
-example pages hold it in a `useRef`; copy that until the pin moves past the
-upstream fix (`AGENTS.md` § Known pitfalls).
+`useAppNotification()` gives `notify.success/info/warning/error(title, text)`
+— top-right, with the platform's durations, and a "Copy" button on errors. Its
+result is stable across renders, so it is safe in hook dependency arrays; the
+pages list it there.
 
 ## Adding your pages
 
