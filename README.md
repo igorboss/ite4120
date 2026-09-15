@@ -109,7 +109,8 @@ executable — and they also prove the migrations run clean from empty.
 2. New package `ee.taltech.ite4120.<yours>`, new schema, new changelog folder,
    one include added to the master changelog.
 3. Follow the animals example file-by-file; the shape is the deliverable.
-4. Rules of the road: `AGENTS.md` (for your agent — and for you).
+4. Rules of the road: `AGENTS.md` (for your agent — and for you). Claude Code,
+   Cursor, Copilot and Gemini are all pointed at that one file; use whichever.
 
 ## Reading order
 
