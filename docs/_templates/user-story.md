@@ -1,11 +1,6 @@
----
-id: <YOURS>-US-001
-title: <one line>
-state: Proposed
-traces-to: []
----
-
 # <YOURS>-US-001 · <title>
+
+> **<YOURS>-US-001** · state **Proposed**
 
 **As** a <role>
 **I want** <capability>

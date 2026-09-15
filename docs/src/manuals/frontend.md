@@ -94,8 +94,10 @@ typed fields (`text`, `select` with `options`, `custom` with your own input),
 fed by `useDataController` from `@helex/core` — `load` the record from the API,
 `current` is what view mode shows, `reset` on Cancel. `onSave` receives the
 form values for the `PUT`; `onDelete` is the soft delete; `onBack` returns to
-the list; `sidebar` holds what belongs beside the record (the owner from the
-registry). Two things it needs from the template: the library stylesheet
+the list; `sidebar` holds what belongs beside the record — here the platform's
+metadata card (`AppCard` of `FieldItem`s: created at / by, modified at / by,
+version, from the `sys*` fields), as in Storybook's *Resource Form › With
+Sidebar (metadata)*. Two things it needs from the template: the library stylesheet
 imported in `main.tsx` (the package does not export it) and, for dates, a
 `custom` field — see the pitfalls in `AGENTS.md`.
 

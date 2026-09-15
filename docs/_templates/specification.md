@@ -1,12 +1,6 @@
----
-id: <YOURS>.01
-title: <component name>
-state: Proposed
-traces-from: [<YOURS>-US-001]
-source-refs: []
----
-
 # <YOURS>.01 · <component name>
+
+> **<YOURS>.01** · state **Proposed** · traces from <YOURS>-US-001 (link it once it exists)
 
 ## Description
 

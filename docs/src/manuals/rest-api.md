@@ -102,8 +102,8 @@ The commons exceptions come from `org.helex.commons.exception`.
   **immutable** after creation — `PUT` ignores it.
 - Retire is a soft delete: `DELETE` answers 204 and sets `sys_status = 'C'`;
   every read filters on `'A'`, and the retired row's code becomes reusable.
-- `sys*` fields appear in responses but are never accepted on input; the
-  database trigger owns them.
+- `sys*` fields (status, version, created at / by, modified at / by) appear in
+  responses but are never accepted on input; the database trigger owns them.
 
 ## The registry adapter
 

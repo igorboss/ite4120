@@ -1,11 +1,6 @@
----
-id: ANIMALS-US-001
-title: Register and look up animals
-state: Implemented
-traces-to: [ANIMALS.01]
----
-
 # ANIMALS-US-001 · Register and look up animals
+
+> **ANIMALS-US-001** · state **Implemented** · traces to [ANIMALS.01](../specifications/ANIMALS.01-animal-register.md)
 
 **As** a municipal veterinary officer
 **I want** a register of animals with their owners and vaccinations

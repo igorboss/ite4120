@@ -10,6 +10,13 @@ export interface Animal {
   birthDate?: string;
   ownerIsikukood?: string;
   chipNumber?: string;
+  /** Platform columns, filled by the database trigger; read-only. */
+  sysStatus?: string;
+  sysVersion?: number;
+  sysCreatedAt?: string;
+  sysCreatedBy?: string;
+  sysModifiedAt?: string;
+  sysModifiedBy?: string;
 }
 
 export interface OwnerInfo {

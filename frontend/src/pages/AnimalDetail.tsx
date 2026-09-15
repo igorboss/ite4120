@@ -4,7 +4,16 @@ import { DatePicker, Form } from 'antd';
 import dayjs from 'dayjs';
 import { IdcardOutlined } from '@ant-design/icons';
 import { useDataController } from '@helex/core';
-import { AppCard, AppDate, AppTag, ResourceForm, useAppNotification, type ResourceFormSection } from '@helex/ui';
+import {
+  AppCard,
+  AppDate,
+  AppTag,
+  AppTimestamp,
+  FieldItem,
+  ResourceForm,
+  useAppNotification,
+  type ResourceFormSection,
+} from '@helex/ui';
 import { animalsApi, type Animal, type OwnerInfo } from '../api';
 
 /**
@@ -29,8 +38,10 @@ const DateField = ({ value, onChange }: { value?: unknown; onChange?: (next: str
  * production Helex applications use for every record, paired with the platform's
  * useDataController. View mode reads the loaded record; Edit switches the same
  * sections to inputs; Save is `PUT /api/animals/{id}` (the registry code stays
- * read-only — it is identity); Retire is the soft `DELETE`. The owner from the
- * registry adapter lives in the sidebar, exactly as in the list's detail panel.
+ * read-only — it is identity); Retire is the soft `DELETE`. The sidebar is the
+ * platform's metadata card — who created and changed the record, and when — as in
+ * @helex/ui's "Resource Form › With Sidebar (metadata)" story; the owner's name
+ * and address from the registry adapter appear beside the personal code.
  */
 export const AnimalDetail = () => {
   const { id } = useParams();
@@ -143,6 +154,25 @@ export const AnimalDetail = () => {
           type: 'text',
           rules: [{ pattern: /^\d{11}$/, message: 'Exactly 11 digits' }],
           placeholder: '38102130265',
+          // View mode adds what the registry adapter knows about that code — never stored.
+          viewRender: (code) =>
+            code ? (
+              <>
+                {String(code)}
+                {owner && (
+                  <>
+                    {' — '}
+                    <b>
+                      {owner.firstName} {owner.lastName}
+                    </b>
+                    , {owner.address}
+                    <div style={{ opacity: 0.65, fontSize: 12 }}>via the owner-registry adapter (mock / X-Road)</div>
+                  </>
+                )}
+              </>
+            ) : (
+              '—'
+            ),
         },
         { name: 'chipNumber', label: 'Microchip number', type: 'text', rules: [{ max: 30 }] },
       ],
@@ -177,25 +207,16 @@ export const AnimalDetail = () => {
       deleteLabel="Retire"
       deleteConfirmText="Retire this animal? A soft delete — the registry code becomes reusable."
       sidebar={
-        <AppCard title="Owner" size="small">
-          {!dc.current.ownerIsikukood ? (
-            <span style={{ opacity: 0.65 }}>no owner recorded</span>
-          ) : (
-            <div style={{ display: 'grid', gap: 4 }}>
-              <div>{dc.current.ownerIsikukood}</div>
-              {owner ? (
-                <>
-                  <b>
-                    {owner.firstName} {owner.lastName}
-                  </b>
-                  <div>{owner.address}</div>
-                </>
-              ) : (
-                <span style={{ opacity: 0.65 }}>name and address unavailable</span>
-              )}
-              <div style={{ opacity: 0.65, fontSize: 12 }}>via the owner-registry adapter (mock / X-Road) — never stored</div>
-            </div>
-          )}
+        <AppCard title="Metadata" size="small">
+          <FieldItem label="Created at">
+            <AppTimestamp value={dc.current.sysCreatedAt} fallback="—" />
+          </FieldItem>
+          <FieldItem label="Created by">{dc.current.sysCreatedBy ?? '—'}</FieldItem>
+          <FieldItem label="Modified at">
+            <AppTimestamp value={dc.current.sysModifiedAt} fallback="—" />
+          </FieldItem>
+          <FieldItem label="Modified by">{dc.current.sysModifiedBy ?? '—'}</FieldItem>
+          <FieldItem label="Version">{dc.current.sysVersion ?? '—'}</FieldItem>
         </AppCard>
       }
     />
