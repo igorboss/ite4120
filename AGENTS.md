@@ -69,6 +69,13 @@ own component in a different domain, following the same shape.
 - Testcontainers 2.x moved `PostgreSQLContainer` to
   `org.testcontainers.postgresql` (non-generic); the old
   `org.testcontainers.containers` import is a deprecated shim.
+- `useAppNotification()` from the published `@helex/ui` (≤ 1.0.37) returns a
+  **new object on every render**. Never list its result in a hook dependency
+  array — an effect that does re-runs after every state update, and a
+  fetch-then-setState page polls the backend forever. Hold it in a ref, as
+  `AnimalList.tsx` and `AnimalCreate.tsx` do. Fixed upstream in
+  helex-solutions/emr-repo#2919; the workaround can go once the pin moves past
+  that release.
 
 ## Verification before any PR
 

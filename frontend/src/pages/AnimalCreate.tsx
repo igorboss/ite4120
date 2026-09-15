@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Input, Select, DatePicker } from 'antd';
 import { AppButtonPrimary, AppButtonSecondary, AppCard, useAppNotification } from '@helex/ui';
@@ -13,12 +13,22 @@ import { animalsApi } from '../api';
 export const AnimalCreate = () => {
   const navigate = useNavigate();
   const notify = useAppNotification();
+  /* Same trap as in AnimalList: the notifier is a new object every render, so
+     the species effect must not depend on it — it would refetch after each
+     setSpecies, without even a debounce. A ref keeps the effect one-shot. */
+  const notifyRef = useRef(notify);
+  useEffect(() => {
+    notifyRef.current = notify;
+  });
   const [species, setSpecies] = useState<{ code: string; name: string }[]>([]);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    animalsApi.species().then(setSpecies).catch((e) => notify.error('Could not load species', e.message));
-  }, [notify]);
+    animalsApi
+      .species()
+      .then(setSpecies)
+      .catch((e) => notifyRef.current.error('Could not load species', e.message));
+  }, []);
 
   const submit = (values: {
     registryCode: string;
