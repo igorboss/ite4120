@@ -47,12 +47,29 @@ export const animalsApi = {
       { headers: authHeaders() },
     ).then((r) => handle<QueryResult<Animal>>(r)),
 
+  get: (id: number): Promise<Animal> =>
+    fetch(`/api/animals/${id}`, { headers: authHeaders() }).then((r) => handle<Animal>(r)),
+
   create: (body: Omit<Animal, 'id'>): Promise<Animal> =>
     fetch('/api/animals', {
       method: 'POST',
       headers: { ...authHeaders(), 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     }).then((r) => handle<Animal>(r)),
+
+  /** PUT — the registry code is immutable; the backend keeps the stored one whatever is sent. */
+  update: (id: number, body: Omit<Animal, 'id'>): Promise<Animal> =>
+    fetch(`/api/animals/${id}`, {
+      method: 'PUT',
+      headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }).then((r) => handle<Animal>(r)),
+
+  /** DELETE — a soft delete: 204, and the registry code becomes reusable. */
+  retire: (id: number): Promise<void> =>
+    fetch(`/api/animals/${id}`, { method: 'DELETE', headers: authHeaders() }).then((r) =>
+      r.ok ? undefined : handle<void>(r),
+    ),
 
   owner: (id: number): Promise<OwnerInfo> =>
     fetch(`/api/animals/${id}/owner`, { headers: authHeaders() }).then((r) =>

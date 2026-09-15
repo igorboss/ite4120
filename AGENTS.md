@@ -62,9 +62,9 @@ own component in a different domain, following the same shape.
   `ownerregistry/`. Never store data a registry owns.
 - IDs from `core.seq_id`; `sys_*` columns on business tables; soft delete via
   `sys_status`; identifiers (isikukood, codes) are **strings, never numbers**.
-- UI: every input is an existing `@helex/ui` or antd component. Avoid the
-  calendar family (`AppCalendar`, `ResourceForm`) — its stylesheet is not
-  reachable from the published package.
+- UI: every input is an existing `@helex/ui` or antd component. Lists on
+  `ResourceList`, record pages on `ResourceForm` + `useDataController`
+  (`AnimalDetail.tsx` is the example).
 
 ## Known pitfalls (earned the hard way)
 
@@ -92,6 +92,16 @@ own component in a different domain, following the same shape.
 - Testcontainers 2.x moved `PostgreSQLContainer` to
   `org.testcontainers.postgresql` (non-generic); the old
   `org.testcontainers.containers` import is a deprecated shim.
+- `@helex/ui`'s stylesheet (`dist/index.css`) is not listed in the package's
+  `exports`, so `import '@helex/ui/dist/index.css'` is refused; `main.tsx`
+  imports it **by file path** instead. Keep that line — without it
+  `ResourceForm` loses its layout (sidebar, resize handle) and the calendar
+  family renders unstyled.
+- `ResourceForm`'s built-in `date` field crashes the picker (`… isValid is not a
+  function`): antd's `Form.Item` injects the form-store value over the dayjs the
+  field prepares, and the store holds the API's `YYYY-MM-DD` string. Use a
+  `custom` field whose input normalises string ↔ dayjs itself — `DateField` in
+  `AnimalDetail.tsx`.
 - `useAppNotification()` from the published `@helex/ui` (≤ 1.0.37) returns a
   **new object on every render**. Never list its result in a hook dependency
   array — an effect that does re-runs after every state update, and a
