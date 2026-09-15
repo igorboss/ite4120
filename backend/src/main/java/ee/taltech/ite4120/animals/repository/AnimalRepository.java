@@ -8,6 +8,7 @@ import java.util.Map;
 import org.helex.commons.db.bean.PgBeanProcessor;
 import org.helex.commons.db.repo.BaseRepository;
 import org.helex.commons.db.sql.SqlBuilder;
+import org.helex.commons.exception.ApiClientException;
 import org.helex.commons.model.QueryResult;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,12 @@ import org.springframework.stereotype.Repository;
 public class AnimalRepository extends BaseRepository {
 
     private static final String SELECT = "select a.* from animals.animal a ";
+
+    /** The sort keys the list endpoint accepts (`sort=name`, `sort=-name`) and their columns. */
+    private static final Map<String, String> SORT = Map.of(
+            "name", "a.name",
+            "registryCode", "a.registry_code",
+            "birthDate", "a.birth_date");
 
     private final PgBeanProcessor bp = new PgBeanProcessor(Animal.class);
     private final PgBeanProcessor speciesBp = new PgBeanProcessor(Species.class);
@@ -47,12 +54,22 @@ public class AnimalRepository extends BaseRepository {
     private List<Animal> list(AnimalQueryParams p) {
         SqlBuilder sb = new SqlBuilder(SELECT + "where a.sys_status = 'A'");
         sb.append(filter(p));
-        sb.append(order(p, Map.of(
-                "name", "a.name",
-                "registryCode", "a.registry_code",
-                "birthDate", "a.birth_date")));
+        sb.append(order(p));
         sb.append(limit(p));
         return getBeans(sb.getSql(), bp, sb.getParams());
+    }
+
+    /**
+     * The platform's {@code order} throws a plain IllegalArgumentException for a sort
+     * key it cannot map. Left alone that surfaces as a 500 — but a mistyped
+     * {@code ?sort=} is the caller's fault, so it becomes a 400 with the allowed keys.
+     */
+    private SqlBuilder order(AnimalQueryParams p) {
+        try {
+            return order(p, SORT);
+        } catch (IllegalArgumentException e) {
+            throw new ApiClientException("unknown sort key; sortable: " + String.join(", ", SORT.keySet().stream().sorted().toList()));
+        }
     }
 
     private SqlBuilder filter(AnimalQueryParams p) {
