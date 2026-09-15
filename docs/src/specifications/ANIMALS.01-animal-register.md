@@ -1,15 +1,7 @@
----
-id: ANIMALS.01
-title: Animal register
-state: Implemented
-traces-from: [ANIMALS-US-001]
-source-refs:
-  - backend/src/main/java/ee/taltech/ite4120/animals/
-  - backend/src/main/resources/animals/db/changelog/
-  - frontend/src/pages/
----
-
 # ANIMALS.01 · Animal register
+
+> **ANIMALS.01** · state **Implemented** · traces from [ANIMALS-US-001](../user-stories/ANIMALS-US-001.md)
+> · source `backend/src/main/java/ee/taltech/ite4120/animals/`, `backend/src/main/resources/animals/db/changelog/`, `frontend/src/pages/`
 
 The worked example specification. Your component's spec follows this shape — every
 section here maps onto one course session and one layer of the implementation.
