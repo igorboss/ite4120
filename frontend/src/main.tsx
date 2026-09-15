@@ -17,6 +17,12 @@ import { App } from './App';
 import './theme/taltech';
 /* Proxima Nova webfonts — the first name in the theme's fontFamily stack. */
 import './assets/fonts/fonts.css';
+/* @helex/ui's own stylesheet. The published package does not list it in its
+   `exports` map, so `import '@helex/ui/dist/index.css'` is refused — importing the
+   file by path is not. It carries the layout of ResourceForm (main column,
+   sidebar, resize handle) and of the calendar family; without it those render
+   unstyled. Keep this line. */
+import '../node_modules/@helex/ui/dist/index.css';
 
 /** Theme comes from the environment (frontend/.env), TalTech by default. */
 const THEME = import.meta.env.VITE_THEME || 'taltech';

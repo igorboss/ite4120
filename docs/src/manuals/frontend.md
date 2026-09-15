@@ -14,7 +14,7 @@ tab while you build. Where to start:
 | Group | What is there | Start with |
 | --- | --- | --- |
 | Documentation | how the library is meant to be used, themes | [Get Started](https://emr.helex.dev/storybook/?path=/docs/documentation-get-started--docs), [Themes](https://emr.helex.dev/storybook/?path=/docs/documentation-themes--docs) |
-| Views | whole-screen patterns | [Resource List](https://emr.helex.dev/storybook/?path=/story/views-resource-list--default) — the list page the example uses (Resource Form is catalogued too, but see the calendar-family note below) |
+| Views | whole-screen patterns | [Resource List](https://emr.helex.dev/storybook/?path=/story/views-resource-list--default) — the list page; [Resource Form](https://emr.helex.dev/storybook/?path=/story/views-resource-form--create) — the record page |
 | Data Entry | inputs: `AppInput`, `AppSelect`, `AppDatePicker`, `AppForm`, `AppButton`, … | [AppForm](https://emr.helex.dev/storybook/?path=/story/data-entry-appform--default), [AppButton](https://emr.helex.dev/storybook/?path=/story/data-entry-appbutton--default) |
 | Data Display | `AppTable`, `AppTag`, `AppStatusTag`, `AppCard`, `AppDescriptions`, `AppTimestamp`, … | [AppTag](https://emr.helex.dev/storybook/?path=/story/data-display-apptag--default) |
 | Feedback | `AppNotification`, `AppModal`, `AppDrawer`, `AppPopconfirm`, `AppAlert`, `AppResult` | [AppNotification](https://emr.helex.dev/storybook/?path=/story/feedback-appnotification--all-types) |
@@ -22,8 +22,7 @@ tab while you build. Where to start:
 
 The rule from `AGENTS.md`: **every input is an existing `@helex/ui` or antd
 component**. Look it up there first; write nothing of your own that the
-catalogue already has. Skip the calendar family (`AppCalendar`,
-`ResourceForm` — its stylesheet is not reachable from the published package).
+catalogue already has.
 
 ## Where things are
 
@@ -36,6 +35,7 @@ catalogue already has. Skip the calendar family (`AppCalendar`,
 | `src/api.ts` | the API client: `fetch` wrappers, the `Bearer` header, problem-detail errors surfaced as `Error.message` |
 | `src/pages/AnimalList.tsx` | the list page — `ResourceList` |
 | `src/pages/AnimalCreate.tsx` | the registration form — antd `Form` in an `AppCard` |
+| `src/pages/AnimalDetail.tsx` | the record page — `ResourceForm` + `useDataController`, view / edit / retire; the registry code in the list links here |
 | `src/theme/taltech.ts` | the TalTech theme, registered **before** first render; `VITE_THEME` in `.env` selects it |
 | `vite.config.ts` | dev server on `18640`, `/api` and `/mock-registry` proxied to the backend (same origin, so no CORS anywhere), one React only (`dedupe`) |
 
@@ -49,6 +49,7 @@ What the UI of your component must have — the example does exactly this:
 | Requirement | In the example |
 | --- | --- |
 | A list page on `ResourceList`: columns, a search field, an action button, a detail panel | `AnimalList.tsx` |
+| A record page on `ResourceForm` reached from the list's identifier column: view, edit → `PUT`, retire → `DELETE` | `AnimalDetail.tsx` |
 | A create form whose every input is a library component, submitting to your API | `AnimalCreate.tsx` — `Input`, `Select` (options from `/species`), `DatePicker` |
 | Backend errors shown to the user **verbatim** from the problem document, in a notification | `notify.error('Registration failed', e.message)` |
 | Data from the external registry displayed live, and its absence handled (fail open in the UI too) | the owner in the detail panel; omitted when `/owner` fails |
@@ -85,6 +86,18 @@ remove it.
   opens it, then a row click fills it. The example fetches the owner there.
 
 Pagination and column configuration come with the component.
+
+## The record page pattern
+
+`AnimalDetail.tsx`: `ResourceForm` in `view` or `edit` mode with `sections` of
+typed fields (`text`, `select` with `options`, `custom` with your own input),
+fed by `useDataController` from `@helex/core` — `load` the record from the API,
+`current` is what view mode shows, `reset` on Cancel. `onSave` receives the
+form values for the `PUT`; `onDelete` is the soft delete; `onBack` returns to
+the list; `sidebar` holds what belongs beside the record (the owner from the
+registry). Two things it needs from the template: the library stylesheet
+imported in `main.tsx` (the package does not export it) and, for dates, a
+`custom` field — see the pitfalls in `AGENTS.md`.
 
 ## The form pattern
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   AppButtonPrimary,
+  AppLink,
   AppTag,
   ResourceList,
   useAppNotification,
@@ -58,7 +59,25 @@ export const AnimalList = () => {
   }, [selected]);
 
   const columns: ResourceListColumn<Animal>[] = [
-    { key: 'registryCode', title: 'Registry code', dataIndex: 'registryCode', locked: true },
+    {
+      key: 'registryCode',
+      title: 'Registry code',
+      dataIndex: 'registryCode',
+      locked: true,
+      // The identifier is the way into the record: it links to the animal's page.
+      render: (code: string, animal: Animal) => (
+        <AppLink
+          href={`/animals/${animal.id}`}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navigate(`/animals/${animal.id}`);
+          }}
+        >
+          {code}
+        </AppLink>
+      ),
+    },
     { key: 'name', title: 'Name', dataIndex: 'name' },
     {
       key: 'speciesCode',
