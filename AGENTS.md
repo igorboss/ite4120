@@ -115,3 +115,7 @@ frontend: npx tsc -b              # typecheck
 db:       scripts/check-changesets  # formatted-SQL grammar + layout (rule 6), fails closed
 manual:   scripts/run-backend + run-frontend → the flow you touched, in the browser
 ```
+
+CI runs the first three on every pull request (`.github/workflows/verify.yml`,
+the "Verify" checks) — a red check is not mergeable. The fourth is yours: no
+machine clicks through the flow you changed.

@@ -34,7 +34,10 @@ is worse than no spec — it is confident misinformation.
 
 Branch, commit, open a PR, have a group-mate review, merge. Your individual
 contribution is evidenced by history under your own name — that is gate B of the
-assessment.
+assessment. Every PR also runs the **Verify** checks (`.github/workflows/verify.yml`):
+`./gradlew test`, `npx tsc -b` + `vite build`, and `scripts/check-changesets` —
+the same commands `AGENTS.md` asks you to run before opening it. Red is not
+mergeable; the reviewer reviews, the machine verifies.
 
 ## 6. Keep the work diary
 
