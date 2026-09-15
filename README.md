@@ -32,7 +32,7 @@ token first — [§ Tools](#tools), at the end of this file. Then:
 # 1. database + backend  (first run downloads dependencies — takes a few minutes)
 ./scripts/run-backend.sh          # Windows: .\scripts\run-backend.ps1
 
-# 2. frontend, in a second terminal
+# 2. frontend, in a second terminal  (npm needs the token too — § Tools › GitHub token)
 cd frontend && npm install && cd ..
 ./scripts/run-frontend.sh         # Windows: .\scripts\run-frontend.ps1
 ```
@@ -138,9 +138,10 @@ packages if you prefer them.
 The one step nothing works without: the Helex packages live in GitHub
 Packages, which refuses anonymous reads.
 
-**Create the token** (opens the form pre-filled with exactly the one scope
-this project needs — pick an expiration, press *Generate token*, copy it
-once):
+**Create the token** at
+**[github.com/settings/tokens/new — pre-filled for this project](https://github.com/settings/tokens/new?description=ITE4120+Helex+packages+read-only&scopes=read:packages)**
+— the form opens with exactly the one scope this project needs; pick an
+expiration, press *Generate token*, copy it once. From a terminal:
 
 ```bash
 open "https://github.com/settings/tokens/new?description=ITE4120+Helex+packages+read-only&scopes=read:packages"
@@ -150,6 +151,15 @@ open "https://github.com/settings/tokens/new?description=ITE4120+Helex+packages+
 It must be a **classic** token: GitHub's Maven and npm registries do not
 accept fine-grained tokens. `read:packages` alone is the minimum privilege —
 it can download packages your account can see, and nothing else.
+
+**Both package managers need it.** Gradle reads it from
+`~/.gradle/gradle.properties`; npm reads it from its global config — and
+GitHub's npm registry refuses anonymous reads **even for public packages**,
+so `npm install` in `frontend/` fails with a 401 until this has run once:
+
+```bash
+npm config set //npm.pkg.github.com/:_authToken=ghp_YOUR_TOKEN --global
+```
 
 **Wire it in** — one paste, silent prompt, no token in your shell history
 (macOS/Linux; on Windows edit the two files by hand as shown below):
@@ -177,5 +187,7 @@ org.helex.emr:…*, npm says *401*. Fix the credentials first — never vendor
 jars. No other access is needed: the backend's Helex jars resolve from THIS
 repository's own Maven registry (mirrored by the lecturer with
 `scripts/mirror-packages.sh`), and the `@helex-solutions` npm packages are
-public. A correct token that still gets 401/403 means the token is expired or
-you have not accepted the invitation to this repository; ask the lecturer.
+public — GitHub's npm registry still wants the token to read them, but no
+extra permission. A correct token that still gets 401/403 means the token is
+expired or you have not accepted the invitation to this repository; ask the
+lecturer.
