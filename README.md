@@ -72,6 +72,7 @@ executable — and they also prove the migrations run clean from empty.
 ## Reading order
 
 `docs/src/README-docs.md` → the animals story and spec in `docs/src/` →
+the three manuals in `docs/src/manuals/` (database, REST API, frontend) →
 `docs/src/liquibase-guide.md` → `docs/src/development-workflow.md`. Or serve the
 book with live reload: `scripts/run-docs` (`.sh` / `.ps1`).
 
