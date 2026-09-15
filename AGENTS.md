@@ -77,6 +77,11 @@ own component in a different domain, following the same shape.
   brings back error toasts on every page load.
 - Testcontainers runs as DB user `test` — `application-test.yml` overrides the
   Liquibase grant parameters. Your component needs no change there.
+- Testcontainers finds Docker Desktop on its own; any other engine needs to be
+  pointed at. Colima: `export DOCKER_HOST=unix://$HOME/.colima/default/docker.sock
+  TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock` before
+  `./gradlew test`, or every IT dies with "Could not find a valid Docker
+  environment" while `docker ps` works fine.
 - Two Reacts = "Invalid hook call": keep the `overrides` in
   `frontend/package.json` and the `dedupe` list in `vite.config.ts`.
 - Bumping `helexCommonsVersion` can change the checksums of the platform's own
