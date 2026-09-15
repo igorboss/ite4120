@@ -60,7 +60,8 @@ Rationale: the owner's address is auxiliary here, never a precondition.
 | | register button | `AppButtonPrimary` | navigates to the form |
 | | detail panel | `ResourceList.detailView` | shows owner name/address fetched via `/owner`; silently omits it when the registry is down |
 | Animal page `/animals/{id}` | view / edit | `ResourceForm` + `useDataController` | sections Identity (registry code read-only, name, species) and Details (birth date, owner code, chip); Edit → Save is `PUT`, Cancel restores; Retire is the soft `DELETE` with confirmation; Back to the list |
-| | owner | `ResourceForm.sidebar` | name and address via `/owner`; "unavailable" when the registry fails — the page never depends on it |
+| | owner | `ResourceForm` field, view mode | the personal code plus name and address via `/owner`; omitted when the registry fails — the page never depends on it |
+| | metadata | `ResourceForm.sidebar` — `AppCard` of `FieldItem`s | created at / by, modified at / by, version — the platform `sys*` columns, read-only |
 | Register form | registry code | `Input` | required, ≤50 |
 | | name | `Input` | required, ≤255 |
 | | species | `Select` | required, options from `/species` |

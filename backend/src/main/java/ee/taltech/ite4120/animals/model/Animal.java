@@ -27,7 +27,9 @@ public class Animal {
     private String sysStatus;
     private Long sysVersion;
     private OffsetDateTime sysCreatedAt;
+    private String sysCreatedBy;
     private OffsetDateTime sysModifiedAt;
+    private String sysModifiedBy;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -51,4 +53,8 @@ public class Animal {
     public void setSysCreatedAt(OffsetDateTime sysCreatedAt) { this.sysCreatedAt = sysCreatedAt; }
     public OffsetDateTime getSysModifiedAt() { return sysModifiedAt; }
     public void setSysModifiedAt(OffsetDateTime sysModifiedAt) { this.sysModifiedAt = sysModifiedAt; }
+    public String getSysCreatedBy() { return sysCreatedBy; }
+    public void setSysCreatedBy(String sysCreatedBy) { this.sysCreatedBy = sysCreatedBy; }
+    public String getSysModifiedBy() { return sysModifiedBy; }
+    public void setSysModifiedBy(String sysModifiedBy) { this.sysModifiedBy = sysModifiedBy; }
 }
