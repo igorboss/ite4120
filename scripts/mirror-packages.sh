@@ -2,8 +2,10 @@
 # mirror-packages.sh — LECTURER-ONLY maintenance script (bash, deliberately no
 # .ps1 twin: students never run this).
 #
-# Copies the Helex Maven artifacts this template depends on from the private
-# helex-solutions registries into THIS repository's own Maven registry
+# Copies the Helex Maven artifacts this template depends on — INCLUDING their
+# org.helex.* transitive dependencies, walked through the Gradle module
+# metadata — from the private helex-solutions registries into THIS
+# repository's own Maven registry
 # (maven.pkg.github.com/igorboss/ite4120). Why: GitHub's Maven registry has no
 # per-package access — reading a package requires read access to its source
 # REPOSITORY. Mirroring into the course repo means the one grant students
@@ -75,9 +77,61 @@ mirror() { # source-repo group artifact version
   echo "  -> $copied files, round-trip verified"
 }
 
-for a in commons-db commons-db-core commons-model commons-util; do
-  mirror emr-repo org.helex.emr "$a" "$COMMONS_VERSION"
-done
-mirror forge org.helex.forge forge-xroad "$FORGE_VERSION"
+repo_for_group() { case "$1" in org.helex.forge*) echo forge ;; *) echo emr-repo ;; esac; }
 
-echo "done. Now set helexCommonsVersion=$COMMONS_VERSION and forgeVersion=$FORGE_VERSION in backend/gradle.properties and run the backend tests."
+# The org.helex.* dependencies an artifact declares, read from its Gradle
+# module metadata at the source (the POM understates them — Gradle consumers
+# resolve via the .module file, which is where commons-model's forge-core
+# dependency lives). Prints "group artifact version" lines; empty when the
+# artifact publishes no module file or has no helex dependencies.
+helex_deps() { # source-repo group artifact version
+  local repo=$1 group=$2 artifact=$3 version=$4
+  local gpath="${group//.//}"
+  curl -sfL -u "$ACTOR:$TOKEN" \
+    "https://maven.pkg.github.com/$SRC_ORG/$repo/$gpath/$artifact/$version/$artifact-$version.module" \
+    2>/dev/null | python3 -c '
+import json, sys
+try:
+    d = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+seen = set()
+for v in d.get("variants", []):
+    for x in v.get("dependencies", []):
+        g = x.get("group", "")
+        if g.startswith("org.helex"):
+            seen.add((g, x["module"], x["version"]["requires"]))
+for g, m, ver in sorted(seen):
+    print(g, m, ver)
+' || true
+}
+
+# Breadth-first over the declared roots plus every org.helex.* transitive.
+# The queue is a space-separated list of repo|group|artifact|version items
+# (coordinates never contain spaces); VISITED de-duplicates.
+QUEUE=""
+for a in commons-db commons-db-core commons-model commons-util; do
+  QUEUE="$QUEUE emr-repo|org.helex.emr|$a|$COMMONS_VERSION"
+done
+QUEUE="$QUEUE forge|org.helex.forge|forge-xroad|$FORGE_VERSION"
+VISITED=""
+
+while [ -n "${QUEUE# }" ]; do
+  QUEUE="${QUEUE# }"
+  item="${QUEUE%% *}"
+  [ "$item" = "$QUEUE" ] && QUEUE="" || QUEUE="${QUEUE#* }"
+  IFS='|' read -r repo group artifact version <<<"$item"
+  key="$group:$artifact:$version"
+  case " $VISITED " in *" $key "*) continue ;; esac
+  VISITED="$VISITED $key"
+
+  mirror "$repo" "$group" "$artifact" "$version"
+  while read -r dg dm dv; do
+    [ -n "$dg" ] || continue
+    echo "  transitive: $dg:$dm:$dv"
+    QUEUE="$QUEUE $(repo_for_group "$dg")|$dg|$dm|$dv"
+  done < <(helex_deps "$repo" "$group" "$artifact" "$version")
+done
+
+echo "done. Mirrored:$VISITED"
+echo "Now set helexCommonsVersion=$COMMONS_VERSION and forgeVersion=$FORGE_VERSION in backend/gradle.properties and run the backend tests."
