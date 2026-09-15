@@ -173,5 +173,8 @@ npm config set //npm.pkg.github.com/:_authToken=ghp_YOUR_TOKEN --global
 
 Missing or wrong token looks like this: Gradle says *cannot resolve
 org.helex.emr:…*, npm says *401*. Fix the credentials first — never vendor
-jars. A correct token that still gets 401/403 means your account lacks access
-to the `helex-solutions` packages; ask the lecturer.
+jars. No other access is needed: the backend's Helex jars resolve from THIS
+repository's own Maven registry (mirrored by the lecturer with
+`scripts/mirror-packages.sh`), and the `@helex-solutions` npm packages are
+public. A correct token that still gets 401/403 means the token is expired or
+you have not accepted the invitation to this repository; ask the lecturer.

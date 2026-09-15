@@ -21,6 +21,18 @@ dependencyResolutionManagement {
         val gprUser = System.getenv("GITHUB_ACTOR") ?: providers.gradleProperty("gpr.user").orNull
         val gprKey = System.getenv("GITHUB_TOKEN") ?: providers.gradleProperty("gpr.key").orNull
         if (gprUser != null && gprKey != null) {
+            // FIRST: this repository's own Maven registry, which mirrors the exact
+            // Helex versions the template pins (scripts/mirror-packages.sh). Access
+            // to this repo — which you have, you cloned it — is all it needs, so
+            // STUDENTS RESOLVE EVERYTHING FROM HERE.
+            maven {
+                name = "Ite4120Mirror"
+                url = uri("https://maven.pkg.github.com/igorboss/ite4120")
+                credentials { username = gprUser; password = gprKey }
+            }
+            // The upstream Helex registries — need helex-solutions access, which
+            // students do not have. Kept for the lecturer: new versions resolve from
+            // here first, then get mirrored above for the cohort.
             maven {
                 name = "HelexEmrPackages"
                 url = uri("https://maven.pkg.github.com/helex-solutions/emr-repo")
