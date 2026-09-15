@@ -1,4 +1,4 @@
-package ee.taltech.ite4120.animals.config;
+package ee.taltech.ite4120.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

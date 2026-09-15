@@ -69,10 +69,14 @@ to `C`. Every query in the repository filters `sys_status = 'A'`.
 no `sys_*` columns, and a separate seed changeset with `on conflict do nothing`
 so it converges on any database.
 
-**Who am I?** Every connection runs
-`select set_config('core.client_identifier', 'animals', false)` first
-(`spring.datasource.hikari.connection-init-sql`); the trigger stamps
-`sys_created_by` / `sys_modified_by` from it.
+**Who am I?** The trigger stamps `sys_created_by` / `sys_modified_by` from
+`core.session_user()`, which reads the session setting `core.client_identifier`.
+Two things set it: the pool, once per connection, to the application's own name
+(`connection-init-sql` in `application.yml` — what Liquibase and demo data are
+attributed to), and `JdbcConfig`, on every connection a request borrows, to the
+signed-in user via `core.set_user(?)` — the platform's `JdbcFactory` pattern.
+So a row records who created it and who last changed it, and an update that
+changes nothing leaves the row untouched (the trigger compares `new = old`).
 
 ## Changesets: the two rules that bite
 

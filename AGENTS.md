@@ -60,8 +60,12 @@ own component in a different domain, following the same shape.
 - External registries go behind an adapter interface with schema-faithful wire
   records (Estonian field names stay Estonian) and a single mapper — see
   `ownerregistry/`. Never store data a registry owns.
-- IDs from `core.seq_id`; `sys_*` columns on business tables; soft delete via
-  `sys_status`; identifiers (isikukood, codes) are **strings, never numbers**.
+- IDs from `core.seq_id`; `sys_*` columns on business tables, never written by
+  application code — the trigger fills them, and `config/JdbcConfig` tells it
+  who the signed-in user is; soft delete via `sys_status`; identifiers
+  (isikukood, codes) are **strings, never numbers**.
+- Cross-cutting configuration (security, JDBC) lives in
+  `ee.taltech.ite4120.config`, not inside a component.
 - UI: every input is an existing `@helex/ui` or antd component. Lists on
   `ResourceList`, record pages on `ResourceForm` + `useDataController`
   (`AnimalDetail.tsx` is the example).
