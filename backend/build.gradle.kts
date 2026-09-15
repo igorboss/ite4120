@@ -67,7 +67,7 @@ tasks.withType<Test> {
 }
 
 springBoot {
-    mainClass = "ee.taltech.ite4120.animals.AnimalsApplication"
+    mainClass = "ee.taltech.ite4120.Application"
 }
 
 tasks.bootJar {

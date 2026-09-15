@@ -93,6 +93,12 @@ What the scripts and builds in this repository actually call, and why:
 
 No local `psql` needed — `scripts/psql` runs it inside the container.
 
+Docker engines other than Docker Desktop (Colima, Rancher Desktop, Podman) work
+for running the app, but the tests need to be told where the socket is — with
+Colima: `export DOCKER_HOST=unix://$HOME/.colima/default/docker.sock
+TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock` before
+`./gradlew test`.
+
 ### Install with a package manager
 
 One script per platform, idempotent, safe to re-run. Each installs the
