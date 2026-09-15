@@ -8,6 +8,7 @@ the release it describes, and readable by your AI agent.
 | --- | --- |
 | `src/user-stories/` | Who needs what, and why — in the stakeholder's language |
 | `src/specifications/` | What the solution does — precise enough to build and test from |
+| `src/manuals/` | Three one-page manuals — database, REST API, frontend — each with the required minimum and where the example meets it |
 | `_templates/` | Copy these to start your own story and specification |
 
 The worked example — the **animals register** — has one story and one specification.
