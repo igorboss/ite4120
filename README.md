@@ -59,6 +59,12 @@ cd backend && ./gradlew test      # business tests, against a throwaway PostgreS
 The two tests in `AnimalBusinessRulesIT` are the specification's business tests,
 executable — and they also prove the migrations run clean from empty.
 
+The same tests, the frontend typecheck and build, and the changeset gate run on
+every pull request as the **Verify** checks (`.github/workflows/verify.yml`);
+they need nothing from you beyond the repository itself. A copy of this
+repository whose Actions token cannot read the Maven mirror adds a `GPR_TOKEN`
+repository secret (the same classic token as in § Tools).
+
 ## Your component
 
 1. Copy `docs/_templates/` → write your user story and specification (different
