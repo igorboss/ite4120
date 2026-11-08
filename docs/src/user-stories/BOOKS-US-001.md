@@ -1,3 +1,7 @@
+   # BOOKS-US-001 · Manage the library book catalogue
+
+   > **BOOKS-US-001** · state **Proposed** · traces to [BOOKS.01](../specifications/BOOKS.01-book-register.md)
+
 **User Story**
 
 As a librarian, I want to manage the book catalogue, book copies, and lending information, search books by ISBN, title, or author, and monitor their availability and lending status so that library records remain accurate and up to date.
