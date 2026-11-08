@@ -22,28 +22,34 @@ A group project for the IT and eGov Technologies course: a library book catalogu
 
 ## Work plan
 
-Tables: `books.book` and `books.copy` (genres are a fixed list inside `book`).
+- [ ] **0. Set up the app on each laptop.** Follow the setup steps.
+  - *Check:* the Animals page opens at http://localhost:18640.
+  - [ ] Helena  - [ ] Mari  - [ ] Heiki
+- [ ] **1. Fix the documents.** Helena updates the spec and Mari the user story. Then both read each other's version to check that they describe the same thing.
+- [ ] **2. Agree on the table design.** All three together.
+  - Table 1: books (one row per book title)
+  - Table 2: copies (one row per physical copy, with its current lending info)
+- [ ] **3. Create the tables.** Mari makes the books table and Heiki the copies table. The books table must exist first, because copies point to it.
+  - *Check:* the backend starts without errors, and the Animals page still works.
+- [ ] **4. Build the APIs.** Helena.
+  - *Check:* try each API in Swagger UI (http://localhost:18440/swagger-ui.html) and confirm the data appears in the database.
+- [ ] **5. Build the 2 forms.** Mari makes the register form and Heiki the lending form.
+  - *Check:* wrong input is refused with an error (e.g. letters in page count, a 10-digit personal code); correct input is saved and shows in the list.
+- [ ] **6. Test everything together on localhost.** On the computer you will present from, before 27.11.
 
-| # | Step | Who | Check after |
-|---|------|-----|-------------|
-| 1 | Set up the app on each laptop (see setup steps) | All | Animals page opens at http://localhost:18640 |
-| 2 | Fix the docs: rename user story to `BOOKS-US-001.md` and add header line; spec table names `book` + `copy` | Mari (story), Helena (spec) | Each reads the other's file; names match |
-| 3 | `books-schema.sql`, `01-book.sql`, both `changelog.xml` files, 1 line in master changelog | Mari | `.\scripts\check-changesets.ps1` passes; backend starts; Animals still works |
-| 4 | `02-copy.sql` (FK → book) | Heiki (after step 3 is merged) | Same checks as step 3 |
-| 5 | API: GET, POST, PUT, DELETE + borrower lookup (copy teacher's `ownerregistry`) | Helena | Each endpoint works in Swagger UI (http://localhost:18440/swagger-ui.html) |
-| 6 | Register form | Mari | Wrong input (letters in pages, empty title) shows an error; correct input appears in the list |
-| 6 | Lending form | Heiki | Wrong input (10-digit personal code) is refused; correct input is saved |
-| 7 | 2–3 automated tests from the spec | Helena | `cd backend` then `.\gradlew test` passes |
-| 8 | Full run-through on the presentation laptop | All | Done before 27.11 |
+### Who does what
 
-### Rules for everyone
+| Person | Tasks |
+|--------|-------|
+| Mari   | User story, books table, register form |
+| Heiki  | Copies table, lending form |
+| Helena | Spec, APIs, automated tests, final localhost test |
 
-- Never commit straight to `main`: make a branch, open a pull request, someone else merges it.
-- Each person commits their own part, so it shows under their name.
-- Never edit a merged SQL file; add a new numbered file instead.
-- Update your work diary after each work session.
+### Comments
 
-### Deadlines
+- **Step 1:** rename the user story to `BOOKS-US-001.md` so it matches the spec. When all three agree, change the state of both from `Proposed` to `Confirmed`. No coding before that (teacher's rule).
+- **Step 2:** the tables are `books.book` and `books.copy`. The name of the second table is still open (`copy` or `item`). Genres are a fixed list inside the books table, not a separate table.
+- **Step 3:** table files go in `backend/src/main/resources/books/db/changelog/books/`. Run `.\scripts\check-changesets.ps1` before each pull request. Never edit a merged SQL file; add a new numbered file
 
-- Defence: 27.11.2026
-- All deliverables: 11.12.2026
+
+- **Deadlines:** defence 27.11.2026, all deliverables 11.12.2026.
