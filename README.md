@@ -1,27 +1,23 @@
-# ITE4120 — Animals Register · Course Template
+# ITE4120 — Library Books Register
 
-A working e-government-shaped application, built the way the Estonian public
-sector builds them — and the template your group extends with **your own
-component**. The worked example is the **animals register**: three tables under
-Liquibase, a documented REST API, an owner lookup through a registry adapter
-(mock locally, X-Road-shaped for production), and a React UI on the Helex
-component library.
+Our group project for ITE4120 (TalTech, autumn 2026): a **library book catalogue
+and lending** component (BOOKS), built on the course template. A librarian
+registers book titles and their copies, searches the catalogue, and records who
+has borrowed each copy. The borrower's name is fetched live from a mock
+registry (X-Road style) and is never stored locally.
 
-Everything Helex arrives as **published packages** — there is no platform source
-checkout here and none is needed.
+Team, requirements and work plan: [`TEAM.md`](TEAM.md).
 
-| Layer | Where | Session |
-| --- | --- | --- |
-| Specification | `docs/src/` (mdBook) | S1 |
-| Data — PostgreSQL + Liquibase | `backend/src/main/resources/animals/db/` | S2 |
-| API — Spring Boot + springdoc | `backend/src/main/java/.../animals/` | S3 |
-| Registry adapter (mock + X-Road) | `.../animals/ownerregistry/` | S3 |
-| UI — React + @helex/ui | `frontend/src/` | S4 |
+| Layer | Where |
+| --- | --- |
+| User story and specification | `docs/src/user-stories/`, `docs/src/specifications/BOOKS.01-book-register.md` |
+| Data — PostgreSQL + Liquibase (tables `books.book`, `books.copy`) | `backend/src/main/resources/books/db/` |
+| API — Spring Boot | `backend/src/main/java/ee/taltech/ite4120/books/` |
+| Borrower registry adapter (mock) | `.../books/borrowerregistry/` |
+| UI — React + @helex/ui | `frontend/src/pages/` |
 
-The UI wears the **TalTech theme** — the `taltech` pack from
-`helex-solutions/helex-extensions`, registered in `frontend/src/theme/taltech.ts`
-and selected by `VITE_THEME` in `frontend/.env` (the @helex/ui built-ins
-`helex`, `tedi`, `matrix` work there too).
+The teacher's **animals register** stays in the repository as the worked
+example; our component is built next to it and follows its structure.
 
 ## Run it
 
@@ -65,22 +61,11 @@ they need nothing from you beyond the repository itself. A copy of this
 repository whose Actions token cannot read the Maven mirror adds a `GPR_TOKEN`
 repository secret (the same classic token as in § Tools).
 
-## Your component
+## Rules
 
-1. Copy `docs/_templates/` → write your user story and specification (different
-   domain from animals!).
-2. New package `ee.taltech.ite4120.<yours>`, new schema, new changelog folder,
-   one include added to the master changelog.
-3. Follow the animals example file-by-file; the shape is the deliverable.
-4. Rules of the road: `AGENTS.md` (for your agent — and for you). Claude Code,
-   Cursor, Copilot and Gemini are all pointed at that one file; use whichever.
-
-## Reading order
-
-`docs/src/README-docs.md` → the animals story and spec in `docs/src/` →
-the three manuals in `docs/src/manuals/` (database, REST API, frontend) →
-`docs/src/liquibase-guide.md` → `docs/src/development-workflow.md`. Or serve the
-book with live reload: `scripts/run-docs` (`.sh` / `.ps1`).
+The rules for building in this repository (for us and for our AI tools) are in
+[`AGENTS.md`](AGENTS.md). Before committing SQL changes, run
+`.\scripts\check-changesets.ps1`.
 
 ## Tools
 
