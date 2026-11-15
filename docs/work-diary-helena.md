@@ -15,7 +15,7 @@
 
 ## 2026-11-15
 
-**Time spent:** 3 hours (incl. 30 min team call)
+**Time spent:** 3,5 hours (incl. 30 min team call)
 
 **Work completed:**
 - Made a file-by-file task list for the whole component, grouped by person
@@ -31,6 +31,8 @@
 - Added the books user story and spec to the docs table of contents (`SUMMARY.md`)
 - Marked the specification and user story as Confirmed
 - Updated the work plan in `TEAM.md` with the new task split
+- Added the frontend link to the API (`booksApi` in `frontend/src/api.ts`) so the forms can call the endpoints (pull request #8)
+- Added automated business tests 1, 2, 6 and 10 in `BookBusinessRulesIT`; they pass in the GitHub Verify check (pull request #9)
 
 **AI assistance:**
 - Used AI to write the API, demo data and spec changes, following the teacher's animals example file by file

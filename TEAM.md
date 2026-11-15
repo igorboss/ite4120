@@ -39,16 +39,16 @@ A group project for the IT and eGov Technologies course: a library book catalogu
   - [ ] Demo data `90-demo-data.sql` (Helena)
   - [ ] *Check:* the backend starts without errors, and the Animals page still works
 - [ ] **4. Build the APIs.** Helena.
-  - [ ] List/search books (`GET /api/books`)
-  - [ ] One book with its copies (`GET /api/books/{id}`)
-  - [ ] Register a book (`POST /api/books`)
-  - [ ] One copy (`GET /api/copies/{id}`)
-  - [ ] Update lending (`PUT /api/copies/{id}`)
-  - [ ] Remove a book (`DELETE /api/books/{id}`)
-  - [ ] Borrower name from the mock registry
-  - [ ] Frontend link to the API (`frontend/src/api.ts`)
+  - [x] List/search books (`GET /api/books`)
+  - [x] One book with its copies (`GET /api/books/{id}`)
+  - [x] Register a book (`POST /api/books`)
+  - [x] One copy (`GET /api/copies/{id}`)
+  - [x] Update lending (`PUT /api/copies/{id}`)
+  - [x] Remove a book (`DELETE /api/books/{id}`)
+  - [x] Borrower name from the mock registry
+  - [x] Frontend link to the API (`frontend/src/api.ts`)
   - [ ] Automated tests (`BookBusinessRulesIT`, at least 2 business tests)
-  - [ ] *Check:* all APIs work in Swagger UI (http://localhost:18440/swagger-ui.html) and the data appears in the database
+  - [x] *Check:* all APIs work in Swagger UI (http://localhost:18440/swagger-ui.html) and the data appears in the database
 - [ ] **5. Build the screens.**
   - [ ] Catalogue screen `BookList.tsx` (Heiki)
   - [ ] Routes in `App.tsx`: `/books`, `/books/new`, `/books/copies/:id` (Heiki)
