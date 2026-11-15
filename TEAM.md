@@ -25,7 +25,7 @@ A group project for the IT and eGov Technologies course: a library book catalogu
 - [ ] **0. Set up the app on each laptop.** Follow the setup steps.
   - *Check:* the Animals page opens at http://localhost:18640.
   - [ ] Mari
-  - [ ] Heiki
+  - [x] Heiki
   - [x] Helena
 - [x] **1. Create user story & specification.** Mari creates the user story and Helena the spec. Then both read each other's version to check that they describe the same thing.  
   - [x] User story (Mari)
@@ -36,27 +36,37 @@ A group project for the IT and eGov Technologies course: a library book catalogu
 - [ ] **3. Create the tables.** The books table must exist first, because copies point to it.
   - [x] Books table (Mari)
   - [x] Copies table (Heiki)
+  - [ ] Demo data `90-demo-data.sql` (Helena)
   - [ ] *Check:* the backend starts without errors, and the Animals page still works
 - [ ] **4. Build the APIs.** Helena.
   - [ ] List/search books (`GET /api/books`)
+  - [ ] One book with its copies (`GET /api/books/{id}`)
   - [ ] Register a book (`POST /api/books`)
+  - [ ] One copy (`GET /api/copies/{id}`)
   - [ ] Update lending (`PUT /api/copies/{id}`)
   - [ ] Remove a book (`DELETE /api/books/{id}`)
   - [ ] Borrower name from the mock registry
+  - [ ] Frontend link to the API (`frontend/src/api.ts`)
+  - [ ] Automated tests (`BookBusinessRulesIT`, at least 2 business tests)
   - [ ] *Check:* all APIs work in Swagger UI (http://localhost:18440/swagger-ui.html) and the data appears in the database
-- [ ] **5. Build the 2 forms.**
+- [ ] **5. Build the screens.**
+  - [ ] Catalogue screen `BookList.tsx` (Heiki)
+  - [ ] Routes in `App.tsx`: `/books`, `/books/new`, `/books/copies/:id` (Heiki)
   - [ ] Register form (Mari)
   - [ ] Lending form (Heiki)
-  - [ ] *Check:* wrong input is refused with an error (e.g. letters in page count, a 10-digit personal code); correct input is saved and shows in the list
+  - [ ] *Check:* wrong input is refused with an error (e.g. letters in page count, a personal code with only 10 digits instead of 11); correct input is saved and shows in the list
 - [ ] **6. Test everything together on localhost.** On the computer you will present from, before 27.11.
+  - [ ] Docs: links in `docs/src/SUMMARY.md`, page titles (Helena)
+  - [ ] Spec and user story state `Confirmed` (all)
+
 
 ### Who does what
 
 | Person | Tasks |
 |--------|-------|
 | Mari   | User story, books table, register form |
-| Heiki  | Copies table, lending form |
-| Helena | Spec, APIs, automated tests, final localhost test |
+| Heiki  | Copies table, catalogue screen, routes, lending form |
+| Helena | Spec, APIs, `api.ts`, demo data, automated tests, docs, final localhost test |
 
 ### Comments
 

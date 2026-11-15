@@ -1,6 +1,6 @@
 # BOOKS.01 · Book catalogue and lending
 
-> **BOOKS.01** · state **Proposed** · traces from `BOOKS-US-001` · source `backend/src/main/java/ee/taltech/ite4120/books/`, `backend/src/main/resources/books/db/changelog/`, `frontend/src/pages/`
+> **BOOKS.01** · state **Confirmed** · traces from `BOOKS-US-001` · source `backend/src/main/java/ee/taltech/ite4120/books/`, `backend/src/main/resources/books/db/changelog/`, `frontend/src/pages/`
 
 ## Description
 
