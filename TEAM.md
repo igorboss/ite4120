@@ -27,15 +27,15 @@ A group project for the IT and eGov Technologies course: a library book catalogu
   - [ ] Mari
   - [ ] Heiki
   - [x] Helena
-- [ ] **1. Create user story & specification.** Mari creates the user story and Helena the spec. Then both read each other's version to check that they describe the same thing.  
+- [x] **1. Create user story & specification.** Mari creates the user story and Helena the spec. Then both read each other's version to check that they describe the same thing.  
   - [x] User story (Mari)
   - [x] Specification (Helena)
 - [x] **2. Agree on the table design.** Fields agreed on the team call and written into the spec.
   - Table 1: books (one row per book title)
   - Table 2: copies (one row per physical copy, with its current lending info)
 - [ ] **3. Create the tables.** The books table must exist first, because copies point to it.
-  - [ ] Books table (Mari)
-  - [ ] Copies table (Heiki)
+  - [x] Books table (Mari)
+  - [x] Copies table (Heiki)
   - [ ] *Check:* the backend starts without errors, and the Animals page still works
 - [ ] **4. Build the APIs.** Helena.
   - [ ] List/search books (`GET /api/books`)
@@ -65,4 +65,4 @@ A group project for the IT and eGov Technologies course: a library book catalogu
 - **Step 3:** table files go in `backend/src/main/resources/books/db/changelog/books/`. Run `.\scripts\check-changesets.ps1` before each pull request. Never edit a merged SQL file; add a new numbered file
 
 
-- **Deadlines:** defence 27.11.2026, all deliverables 11.12.2026.
+- **Deadlines:** defence 27.11.2026, all deliverables 11.12.2026. 
