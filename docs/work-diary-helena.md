@@ -13,6 +13,37 @@
 **Corrections and decisions:**
 - 
 
+## 2026-11-15
+
+**Time spent:** 3,5 hours (incl. 30 min team call)
+
+**Work completed:**
+- Made a file-by-file task list for the whole component, grouped by person
+- Team call (30 min): agreed who takes the unassigned tasks — Heiki: catalogue screen and routes; Helena: demo data, docs and page titles
+- Reviewed the book and copy tables against the spec; fixed the book table (added the `sys_*` columns, ISBN unique among active rows only)
+- Set up branch protection on `main` (pull request with 1 approval required) and enabled the automated Verify checks in GitHub Actions
+- Built the books REST API: catalogue search, one book, register, remove, one copy, update lending, and the borrower name lookup from the mock registry (pull request #5)
+- Updated the specification to match the API: two GET endpoints, paging, ISBN without hyphens, borrower lookup and due-date rules
+- Tested all API endpoints in Swagger UI (GET, POST, PUT, DELETE): registering, listing, lending, returning and removing books, re-registering a removed book's ISBN, validation errors (400), conflicts (409) and authorization (401)
+- Added demo data: 4 books and 7 copies, one per status (pull request #6)
+- Prepared the column spacing fix in `02-copy.sql` for Heiki to review (pull request #7)
+- Made a step-by-step API test guide (Swagger test steps with expected results)
+- Added the books user story and spec to the docs table of contents (`SUMMARY.md`)
+- Marked the specification and user story as Confirmed
+- Updated the work plan in `TEAM.md` with the new task split
+- Added the frontend link to the API (`booksApi` in `frontend/src/api.ts`) so the forms can call the endpoints (pull request #8)
+- Added automated business tests 1, 2, 6 and 10 in `BookBusinessRulesIT`; they pass in the GitHub Verify check (pull request #9)
+
+**AI assistance:**
+- Used AI to write the API, demo data and spec changes, following the teacher's animals example file by file
+- Used AI to check the code and SQL (compile check, SQL syntax, changeset grammar) and to cross-check all 12 business tests against the code
+- Used AI to explain test results in Swagger and how GitHub rulesets and checks work
+
+**Corrections and decisions:**
+- Edited the column spacing in `02-copy.sql` to match the teacher's SQL format requirement (`check-changesets`), as the failing check blocked every pull request; Heiki to review and approve
+- Added `GET /api/books/{id}` and `GET /api/copies/{id}`, and decided that a due date with a non-BORROWED status is refused
+- GitHub cannot exclude single files from required approvals, so diary and `TEAM.md` updates go in the same pull request as the related work
+
 ## 2026-11-08
 
 **Time spent:** 4 hours (incl. 1 h team call)
