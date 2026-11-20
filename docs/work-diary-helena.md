@@ -13,6 +13,25 @@
 **Corrections and decisions:**
 - 
 
+## 2026-11-19
+
+**Time spent:** 0.5 hours
+
+**Work completed:**
+- Reviewed the project status before the Sunday (22 Nov) team call: open pull requests (#5–#9), approvals and automated checks
+- Found that Mari's new commit on the `mari-books` branch (`03-book-fixes.sql`) repeats the book table fix already in `main`; it should not be merged
+- Checked that the tables in the SQL files match the spec: `books.book` and `books.copy`
+- Prepared a genre reference table as a third table (pull request #10, draft): `books.genre` with the ten genre codes, `book.genre` as a foreign key, and the spec, `TEAM.md` and README updated; the automated backend check passed
+- Listed what is still open from my side: page titles, the `TEAM.md` step 2 comment and the final run-through on the presentation laptop
+
+**AI assistance:**
+- Used AI to check the repository status and the pull request checks
+- Used AI to build the genre table following the teacher's `animals.species` example and to verify the genre list matches in the database, the Java code and `api.ts`
+
+**Corrections and decisions:**
+- The assessment criteria require at least three tables, while two were mentioned in class; prepared the genre table as a draft to cover both, to be agreed with the team on Sunday 22 Nov
+- The draft was committed as a draft so nothing is merged without the team's agreement
+
 ## 2026-11-15
 
 **Time spent:** 3,5 hours (incl. 30 min team call)
