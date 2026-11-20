@@ -1,6 +1,6 @@
    # BOOKS-US-001 · Manage the library book catalogue
 
-   > **BOOKS-US-001** · state **Proposed** · traces to [BOOKS.01](../specifications/BOOKS.01-book-register.md)
+  > **BOOKS-US-001** · state **Proposed** · traces to [BOOKS.01](../specifications/BOOKS.01-book-register.md)
 
 **User Story**
 
