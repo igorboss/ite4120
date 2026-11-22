@@ -1,17 +1,29 @@
 # Work diary — Helena
 
-## 2026-11-dd
+## 2026-11-22
 
-**Time spent:** 
+**Time spent:** 2 hours (incl. 1.25 h team meeting)
 
 **Work completed:**
-- 
+- Team meeting (1.25 h): went through the project status and the presentation before the defence
+- Reviewed all pull requests and checked the whole repository against the assessment criteria, the spec and the work plan
+- Found that Mari's register form was on her old branch together with the duplicate SQL fix; moved the form to a new branch with Mari as the author of her commit and left the SQL file out
+- Fixed the register form so it builds and follows the spec's field rules (ISBN 10 or 13 digits, page count > 0, 4-digit year with the pre-order hint, copies field, number-only fields), added the `/books/new` route and made the app open on the books catalogue (pull request #14)
+- Merged Heiki's catalogue screen and lending form together with the register form
+- Tested the application on localhost: the catalogue, registering a book in the form, removing a book, and the API in Swagger UI
+- Reviewed whether the specification is detailed enough to rebuild the application from it; it matches the built solution, remaining gaps are optional details
+- Found an open pull request from our fork in the teacher's repository (#18) that should be closed
 
 **AI assistance:**
-- 
+- Used AI to review the pull requests and the repository status, to find the remaining gaps and to fix the register form
+- Used AI to keep each member's work under their own name in the commit history
+- Used AI to check the specification against the built application and to explain the mock population registry data
 
 **Corrections and decisions:**
-- 
+- Mari's register form did not build and missed most of the spec's field rules; fixed it in a separate commit, so her own commit stays as she wrote it
+- Decided in the team meeting to keep two tables, as the teacher said in class; the genre table (pull request #10) is not merged
+- A single book copy is not deleted; it is marked LOST, and removing a book removes the title with all its copies, as in the spec
+
 
 ## 2026-11-19
 
@@ -31,6 +43,7 @@
 **Corrections and decisions:**
 - The assessment criteria require at least three tables, while two were mentioned in class; prepared the genre table as a draft to cover both, to be agreed with the team on Sunday 22 Nov
 - The draft was committed as a draft so nothing is merged without the team's agreement
+
 
 ## 2026-11-15
 
@@ -63,6 +76,7 @@
 - Added `GET /api/books/{id}` and `GET /api/copies/{id}`, and decided that a due date with a non-BORROWED status is refused
 - GitHub cannot exclude single files from required approvals, so diary and `TEAM.md` updates go in the same pull request as the related work
 
+
 ## 2026-11-08
 
 **Time spent:** 4 hours (incl. 1 h team call)
@@ -89,6 +103,7 @@
 - Docker Desktop install from the setup script failed (error 1603) because Docker was already installed — kept the existing Docker
 - Frontend failed with 401 at first because the npm token was not set; fixed by setting the token with `npm config set`
 
+
 ## 2026-11-01
 
 **Time spent:** 2 hours
@@ -104,6 +119,7 @@
 **Corrections and decisions:**
 - User Story moved to user story folder and needs some updates too after spec file
 
+
 ## 2026-10-25
 
 **Time spent:** 1 hour
@@ -111,6 +127,7 @@
 **Work completed:**
 - Brainstormed on user story topics on team call
 - Created initial draft for user story and specification and distributed workload and defined next steps
+
 
 ## 2026-10-21
 

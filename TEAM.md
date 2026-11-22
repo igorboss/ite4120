@@ -22,23 +22,18 @@ A group project for the IT and eGov Technologies course: a library book catalogu
 
 ## Work plan
 
-- [ ] **0. Set up the app on each laptop.** Follow the setup steps.
-  - *Check:* the Animals page opens at http://localhost:18640.
-  - [ ] Mari
-  - [x] Heiki
-  - [x] Helena
 - [x] **1. Create user story & specification.** Mari creates the user story and Helena the spec. Then both read each other's version to check that they describe the same thing.  
   - [x] User story (Mari)
   - [x] Specification (Helena)
 - [x] **2. Agree on the table design.** Fields agreed on the team call and written into the spec.
   - Table 1: books (one row per book title)
   - Table 2: copies (one row per physical copy, with its current lending info)
-- [ ] **3. Create the tables.** The books table must exist first, because copies point to it.
+- [x] **3. Create the tables.** The books table must exist first, because copies point to it.
   - [x] Books table (Mari)
   - [x] Copies table (Heiki)
-  - [ ] Demo data `90-demo-data.sql` (Helena)
-  - [ ] *Check:* the backend starts without errors, and the Animals page still works
-- [ ] **4. Build the APIs.** Helena.
+  - [x] Demo data `90-demo-data.sql` (Helena)
+  - [x] *Check:* the backend starts without errors, and the Animals page still works
+- [x] **4. Build the APIs.** Helena.
   - [x] List/search books (`GET /api/books`)
   - [x] One book with its copies (`GET /api/books/{id}`)
   - [x] Register a book (`POST /api/books`)
@@ -47,17 +42,17 @@ A group project for the IT and eGov Technologies course: a library book catalogu
   - [x] Remove a book (`DELETE /api/books/{id}`)
   - [x] Borrower name from the mock registry
   - [x] Frontend link to the API (`frontend/src/api.ts`)
-  - [ ] Automated tests (`BookBusinessRulesIT`, at least 2 business tests)
+  - [x] Automated tests (`BookBusinessRulesIT`, at least 2 business tests)
   - [x] *Check:* all APIs work in Swagger UI (http://localhost:18440/swagger-ui.html) and the data appears in the database
-- [ ] **5. Build the screens.**
-  - [ ] Catalogue screen `BookList.tsx` (Heiki)
-  - [ ] Routes in `App.tsx`: `/books`, `/books/new`, `/books/copies/:id` (Heiki)
-  - [ ] Register form (Mari)
-  - [ ] Lending form (Heiki)
-  - [ ] *Check:* wrong input is refused with an error (e.g. letters in page count, a personal code with only 10 digits instead of 11); correct input is saved and shows in the list
-- [ ] **6. Test everything together on localhost.** On the computer you will present from, before 27.11.
-  - [ ] Docs: links in `docs/src/SUMMARY.md`, page titles (Helena)
-  - [ ] Spec and user story state `Confirmed` (all)
+- [x] **5. Build the screens.**
+  - [x] Catalogue screen `BookList.tsx` (Heiki)
+  - [x] Routes in `App.tsx`: `/books`, `/books/new`, `/books/copies/:id` (Heiki)
+  - [x] Register form (Mari)
+  - [x] Lending form (Heiki)
+  - [x] *Check:* wrong input is refused with an error (e.g. letters in page count, a personal code with only 10 digits instead of 11); correct input is saved and shows in the list
+- [x] **6. Test everything together on localhost.** On the computer you will present from, before 27.11.
+  - [x] Docs: links in `docs/src/SUMMARY.md`, page titles (Helena)
+  - [x] Spec and user story state `Confirmed` (all)
 
 
 ### Who does what
@@ -70,9 +65,9 @@ A group project for the IT and eGov Technologies course: a library book catalogu
 
 ### Comments
 
-- **Step 1:** rename the user story to `BOOKS-US-001.md` so it matches the spec. When all three agree, change the state of both from `Proposed` to `Confirmed`. No coding before that (teacher's rule).
-- **Step 2:** the tables are `books.book` and `books.copy`. The name of the second table is still open (`copy` or `item`). Genres are a fixed list inside the books table, not a separate table.
+- **Step 1:** renamed the user story to `BOOKS-US-001.md` so it matches the spec. When all three agree, change the state of both from `Proposed` to `Confirmed`. No coding before that (teacher's rule).
+- **Step 2:** the tables are `books.book` and `books.copy`. Genres are a fixed list inside the books table, not a separate table.
 - **Step 3:** table files go in `backend/src/main/resources/books/db/changelog/books/`. Run `.\scripts\check-changesets.ps1` before each pull request. Never edit a merged SQL file; add a new numbered file
 
 
-- **Deadlines:** defence 27.11.2026, all deliverables 11.12.2026. 
+- **Deadlines:** defence 26.-27.11.2026, all deliverables 11.12.2026. 
