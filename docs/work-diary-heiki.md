@@ -90,18 +90,35 @@ Time spent ca 4 hours
 
 ## 2026-11-15
 
-Time spent ca 1,5 hours
+Time spent ca 1.5 hours
 
 **Work completed:**
 
-- Participated in a team call about the current status and next steps.
+- Participated in a team call about the current status and the next steps.
+- Agreed on the remaining division of work, including my responsibility for the catalogue screen, lending form and related routes.
 
 ## 2026-11-22
 
-Time spent ca 4 hours
+Time spent ca 6 hours
 
 **Work completed:**
 
-- Participated in a team call about the library application.
-- Discussed the book register, lending register, statuses and main rules.
-- Discussed possible validation rules and tests.
+- Updated the local project from the latest main branch and created a separate frontend branch.
+- Created the book catalogue screen BookList.tsx with search, genre/status filters, copy details and book title removal action.
+- Created the lending update form LendingForm.tsx with status-dependent validation for borrower personal code and due date.
+- Added routes for the catalogue and lending form.
+- Built and tested the frontend together with the backend and PostgreSQL.
+- Tested book search and filtering, lending updates, validation rules, removal restrictions and book registration.
+- Committed and pushed the frontend changes to GitHub and verified that the final main branch contains the completed functionality.
+- Participated in a team call for joint testing and finalising the work.
+
+**AI assistance:**
+
+- Used AI for step-by-step guidance with React/TypeScript, Git, project structure and troubleshooting.
+- Used AI to review the implementation against the project specification and to support functional testing.
+
+**Corrections and decisions:**
+
+- Fixed the catalogue detail panel so that it opens when a row is selected.
+- Reset the local development database after a Liquibase checksum conflict caused by changes merged into main.
+- Confirmed that the main application functionality works together end-to-end.
