@@ -55,3 +55,53 @@ Time spent ca 2 hours
 
 - Kept my pull request open for discussion.
 - Decided to confirm the final data model during the next team call before making further changes.
+
+## 2026-11-08
+
+Time spent ca 2 hours
+
+**Work completed:**
+
+- Participated in a team call about the library application.
+- Discussed the book register, lending register, statuses and main rules.
+- Discussed possible validation rules and tests.
+
+## 2026-11-10
+
+Time spent ca 4 hours
+
+**Work completed:**
+
+- Set up and tested the project development environment.
+- Created my Git branch heiki-copy-table.
+- Created the Liquibase migration for the books.copy table, including the foreign key, status and lending validation rules.
+- Added the migration to the changelog and successfully tested it with the backend and PostgreSQL.
+- Installed and used DBeaver to verify the table structure, constraints and indexes.
+- Committed and pushed the changes to the group GitHub repository.
+
+**AI assistance:**
+
+- Used AI for step-by-step guidance with Liquibase, Git, development environment setup and troubleshooting.
+- Used AI to review the database structure against the project specification and lecturer examples.
+  
+**Corrections and decisions:**
+- Confirmed that ISBN identifies a book title/edition and physical copies are stored separately.
+- Kept lending information at copy level.
+
+## 2026-11-15
+
+Time spent ca 1,5 hours
+
+**Work completed:**
+
+- Participated in a team call about the current status and next steps.
+
+## 2026-11-22
+
+Time spent ca 4 hours
+
+**Work completed:**
+
+- Participated in a team call about the library application.
+- Discussed the book register, lending register, statuses and main rules.
+- Discussed possible validation rules and tests.
