@@ -33,7 +33,7 @@ A group project for the IT and eGov Technologies course: a library book catalogu
   - [x] Copies table (Heiki)
   - [x] Demo data `90-demo-data.sql` (Helena)
   - [x] *Check:* the backend starts without errors, and the Animals page still works
-- [ ] **4. Build the APIs.** Helena.
+- [x] **4. Build the APIs.** Helena.
   - [x] List/search books (`GET /api/books`)
   - [x] One book with its copies (`GET /api/books/{id}`)
   - [x] Register a book (`POST /api/books`)
@@ -44,7 +44,7 @@ A group project for the IT and eGov Technologies course: a library book catalogu
   - [x] Frontend link to the API (`frontend/src/api.ts`)
   - [x] Automated tests (`BookBusinessRulesIT`, at least 2 business tests)
   - [x] *Check:* all APIs work in Swagger UI (http://localhost:18440/swagger-ui.html) and the data appears in the database
-- [ ] **5. Build the screens.**
+- [x] **5. Build the screens.**
   - [x] Catalogue screen `BookList.tsx` (Heiki)
   - [x] Routes in `App.tsx`: `/books`, `/books/new`, `/books/copies/:id` (Heiki)
   - [x] Register form (Mari)
@@ -70,4 +70,4 @@ A group project for the IT and eGov Technologies course: a library book catalogu
 - **Step 3:** table files go in `backend/src/main/resources/books/db/changelog/books/`. Run `.\scripts\check-changesets.ps1` before each pull request. Never edit a merged SQL file; add a new numbered file
 
 
-- **Deadlines:** defence 27.11.2026, all deliverables 11.12.2026. 
+- **Deadlines:** defence 26.-27.11.2026, all deliverables 11.12.2026. 
