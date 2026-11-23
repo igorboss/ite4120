@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+    <include file="lostfound/db/changelog/lostfound/lostfound-schema.sql"/>
+    <include file="lostfound/db/changelog/lostfound/01-reference-data.sql"/>
+    <include file="lostfound/db/changelog/lostfound/02-item-report.sql"/>
+</databaseChangeLog>

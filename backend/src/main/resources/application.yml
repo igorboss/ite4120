@@ -7,7 +7,7 @@ server:
 
 spring:
   application:
-    name: ite4120-animals-register
+    name: ite4120-lost-and-found
   datasource:
     url: ${ANIMALS_DB_URL:jdbc:postgresql://localhost:18520/animals}
     username: ${ANIMALS_DB_USER:animals}

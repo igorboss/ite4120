@@ -56,7 +56,7 @@ createRoot(document.getElementById('root')!).render(
             <AuthReduxBridge />
             <BrowserRouter>
               <HelexThemeProvider theme={THEME}>
-                <AppRoot appName="Animals Register">
+                <AppRoot appName="Parma Lost and Found">
                   <GlobalApiErrorBridge />
                   <App />
                 </AppRoot>

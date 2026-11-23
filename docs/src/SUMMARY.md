@@ -8,3 +8,6 @@
 - [Manual · Frontend](manuals/frontend.md)
 - [User story · ANIMALS-US-001](user-stories/ANIMALS-US-001.md)
 - [Specification · ANIMALS.01](specifications/ANIMALS.01-animal-register.md)
+- [User story · LOSTFOUND-US-001](user-stories/LOSTFOUND-US-001.md)
+- [Specification · LOSTFOUND.01](specifications/LOSTFOUND.01-lost-and-found.md)
+- [Presentation and demo guide](presentations/lost-found-demo.md)

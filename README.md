@@ -1,11 +1,13 @@
-# ITE4120 — Animals Register · Course Template
+# ITE4120 — Parma Lost and Found Registry
 
-A working e-government-shaped application, built the way the Estonian public
-sector builds them — and the template your group extends with **your own
-component**. The worked example is the **animals register**: three tables under
-Liquibase, a documented REST API, an owner lookup through a registry adapter
-(mock locally, X-Road-shaped for production), and a React UI on the Helex
-component library.
+A course project built on the ITE4120 e-government template. The application
+provides a municipal Lost and Found Registry for Parma: citizens can create
+LOST and FOUND reports, search and filter existing reports, and consult
+collection points through an external-registry adapter.
+
+The repository retains the course's Animals Register as a worked example. The
+student component is `lostfound`, implemented as its own Spring package,
+PostgreSQL schema, Liquibase changelog and React pages.
 
 Everything Helex arrives as **published packages** — there is no platform source
 checkout here and none is needed.
@@ -13,10 +15,10 @@ checkout here and none is needed.
 | Layer | Where | Session |
 | --- | --- | --- |
 | Specification | `docs/src/` (mdBook) | S1 |
-| Data — PostgreSQL + Liquibase | `backend/src/main/resources/animals/db/` | S2 |
-| API — Spring Boot + springdoc | `backend/src/main/java/.../animals/` | S3 |
-| Registry adapter (mock + X-Road) | `.../animals/ownerregistry/` | S3 |
-| UI — React + @helex/ui | `frontend/src/` | S4 |
+| Data — PostgreSQL + Liquibase | `backend/src/main/resources/lostfound/db/` | S2 |
+| API — Spring Boot + springdoc | `backend/src/main/java/.../lostfound/` | S3 |
+| Registry adapter (mock + X-Road boundary) | `.../lostfound/registry/` | S3 |
+| UI — React + @helex/ui | `frontend/src/pages/lostfound/` | S4 |
 
 The UI wears the **TalTech theme** — the `taltech` pack from
 `helex-solutions/helex-extensions`, registered in `frontend/src/theme/taltech.ts`
@@ -39,9 +41,9 @@ cd frontend && npm install && cd ..
 
 | What | Where |
 | --- | --- |
-| The application | http://localhost:18640 |
+| The application | http://localhost:18640 (Lost and Found) |
 | Swagger UI — the live API contract | http://localhost:18440/swagger-ui.html |
-| The imitated population registry | http://localhost:18440/mock-registry/persons/38102130265 |
+| Lost and Found API | http://localhost:18440/swagger-ui.html |
 | PostgreSQL | localhost:18520 · `scripts/psql` for a shell |
 | The documentation book | `scripts/run-docs` → http://localhost:18740 (needs [mdBook](https://rust-lang.github.io/mdBook/guide/installation.html), no Docker) |
 
@@ -56,8 +58,9 @@ rebuilds the schema on the next backend start.
 cd backend && ./gradlew test      # business tests, against a throwaway PostgreSQL
 ```
 
-The two tests in `AnimalBusinessRulesIT` are the specification's business tests,
-executable — and they also prove the migrations run clean from empty.
+The Lost and Found business tests are in `LostFoundBusinessRulesTest`; the original
+Animals tests remain as the course template examples. Testcontainers also verifies
+that the Liquibase changelogs run from an empty PostgreSQL database.
 
 The same tests, the frontend typecheck and build, and the changeset gate run on
 every pull request as the **Verify** checks (`.github/workflows/verify.yml`);
@@ -65,15 +68,12 @@ they need nothing from you beyond the repository itself. A copy of this
 repository whose Actions token cannot read the Maven mirror adds a `GPR_TOKEN`
 repository secret (the same classic token as in § Tools).
 
-## Your component
+## Project documentation
 
-1. Copy `docs/_templates/` → write your user story and specification (different
-   domain from animals!).
-2. New package `ee.taltech.ite4120.<yours>`, new schema, new changelog folder,
-   one include added to the master changelog.
-3. Follow the animals example file-by-file; the shape is the deliverable.
-4. Rules of the road: `AGENTS.md` (for your agent — and for you). Claude Code,
-   Cursor, Copilot and Gemini are all pointed at that one file; use whichever.
+- User story: `docs/src/user-stories/LOSTFOUND-US-001.md`
+- Specification: `docs/src/specifications/LOSTFOUND.01-lost-and-found.md`
+- Presentation and demo guide: `docs/src/presentations/lost-found-demo.md`
+- Repository and architecture rules: `AGENTS.md`
 
 ## Reading order
 
