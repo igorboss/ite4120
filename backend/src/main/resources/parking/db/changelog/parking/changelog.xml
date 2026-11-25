@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Parking component changelog.
+  Released changesets are immutable: add a new changeset instead of editing an old one.
+-->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <include file="parking/db/changelog/parking/parking-schema.sql"/>
+    <include file="parking/db/changelog/parking/01-permit-application.sql"/>
+    <include file="parking/db/changelog/parking/02-permit-decision.sql"/>
+    <include file="parking/db/changelog/parking/03-parking-permit.sql"/>
+    <include file="parking/db/changelog/parking/04-parking-schema-alignment.sql"/>
+    <include file="parking/db/changelog/parking/05-parking-permit-validation.sql"/>
+
+</databaseChangeLog>

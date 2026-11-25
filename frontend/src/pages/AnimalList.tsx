@@ -119,9 +119,9 @@ export const AnimalList = () => {
         },
       }}
       actions={
-        <AppButtonPrimary icon={<PlusOutlined />} onClick={() => navigate('/animals/new')}>
+        <><AppLink href="/parking/applications">Parking permit register</AppLink><AppButtonPrimary icon={<PlusOutlined />} onClick={() => navigate('/animals/new')}>
           Register animal
-        </AppButtonPrimary>
+        </AppButtonPrimary></>
       }
       detailView={{
         selectedRecord: selected,

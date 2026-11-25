@@ -8,6 +8,9 @@ import org.helex.commons.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -29,6 +32,25 @@ public class ApiErrorHandler {
                 .sorted()
                 .reduce((a, b) -> a + "; " + b)
                 .orElse("request body is invalid"));
+        return pd;
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail unreadableBody(HttpMessageNotReadableException e) {
+        ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        pd.setTitle("Invalid request");
+        pd.setDetail("request body is missing or malformed");
+        return pd;
+    }
+
+    @ExceptionHandler({
+        MissingServletRequestParameterException.class,
+        MethodArgumentTypeMismatchException.class
+    })
+    public ProblemDetail invalidRequestParameter(Exception e) {
+        ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        pd.setTitle("Invalid request");
+        pd.setDetail("request parameter is missing or has an invalid value");
         return pd;
     }
 
